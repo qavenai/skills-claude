@@ -1,0 +1,995 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Caio Bastos Tattoo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Tatuagem old school na Barra, em Salvador. Traço firme, preto sólido e sombra pontilhada. Também blackwork, lettering e ornamental. Orçamento pelo WhatsApp.">
+<meta name="theme-color" content="#052B40">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Caio Bastos Tattoo">
+<meta property="og:description" content="Old school com sal na pele. Estúdio na Barra, Salvador. Orçamento pelo WhatsApp.">
+<meta property="og:image" content="assets/farol.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Ultra&display=swap">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LocalBusiness","name":"Caio Bastos Tattoo","description":"Estúdio de tatuagem especializado em old school.","telephone":"+55 71 99293-2165","address":{"@type":"PostalAddress","addressLocality":"Salvador","addressRegion":"BA","addressCountry":"BR","streetAddress":"Barra"},"sameAs":["https://www.instagram.com/caiobastostattoo/"]}
+</script>
+<style>
+/* Layout: a fixed 3D sea sits behind the page; the hero (day) and the closing scene (sunset at the Barra lighthouse) are windows onto it, the sections between are solid bands of deep water, foam and sea blue. */
+:root {
+  --abissal: #052B40;   /* deep water, main dark band */
+  --mar: #1590B8;       /* Barra sea blue */
+  --raso: #6FD6E2;      /* shallow turquoise */
+  --espuma: #EEF8F6;    /* foam, light band and text on dark */
+  --tinta: #071820;     /* tattoo ink */
+  --sol: #F4B740;       /* old school sun yellow, the call to action */
+  --flash: #D2342B;     /* traditional flash red, used once or twice */
+  --ceu: #CDEEF0;       /* daytime sky, fallback ground */
+
+  --display: "Ultra", "Rockwell Extra Bold", Rockwell, "Clarendon", Georgia, serif;
+  --text: "Archivo", "Helvetica Neue", Arial, sans-serif;
+
+  --s-1: 0.875rem; --s0: 1.0625rem; --s1: 1.3125rem; --s2: 1.75rem; --s3: 2.375rem; --s4: 3.1875rem; --s5: 4.25rem;
+  --gutter: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+  --measure: 34rem;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--abissal); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--abissal);
+  color: var(--tinta);
+  font-family: var(--text);
+  font-size: var(--s0);
+  line-height: 1.55;
+  font-variation-settings: "wdth" 100;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--sol); outline-offset: 3px; border-radius: 2px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; letter-spacing: 0.005em; }
+p { margin: 0; }
+.wrap {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-left: max(clamp(16px, 5vw, 56px), env(safe-area-inset-left, 0px));
+  padding-right: max(clamp(16px, 5vw, 56px), env(safe-area-inset-right, 0px));
+}
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- 3D stage ---------- */
+#mar3d {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  z-index: 0; display: block; pointer-events: none;
+}
+
+/* ---------- Banner button: the old school scroll ---------- */
+.banner {
+  --b-fill: var(--sol);
+  --b-ink: var(--tinta);
+  position: relative; isolation: isolate;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.6em;
+  min-height: 3.4rem;
+  padding: 0.7rem 2.6rem;
+  font-family: var(--text); font-weight: 750; font-size: var(--s0);
+  font-variation-settings: "wdth" 88;
+  color: var(--b-ink); text-decoration: none; border: 0; background: none; cursor: pointer;
+  transition: transform .15s ease;
+}
+.banner::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: var(--b-fill);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 1.1rem) 50%, 100% 100%, 0 100%, 1.1rem 50%);
+}
+.banner::after {
+  /* ink outline drawn as a second, inset clip so it follows the swallowtail */
+  content: ""; position: absolute; inset: 0; z-index: -2;
+  background: var(--b-ink);
+  clip-path: polygon(-3px -3px, calc(100% + 3px) -3px, calc(100% - 1.1rem + 1px) 50%, calc(100% + 3px) calc(100% + 3px), -3px calc(100% + 3px), calc(1.1rem - 1px) 50%);
+  transform: translate(4px, 4px);
+}
+.banner svg { width: 1.35em; height: 1.35em; flex: none; }
+.banner:hover { transform: translate(-1px, -2px); }
+.banner:active { transform: translate(2px, 2px); }
+@media (prefers-reduced-motion: reduce) { .banner { transition: none; } }
+
+.quiet-link {
+  font-weight: 650; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.3em;
+}
+.quiet-link:hover { text-decoration-thickness: 3px; }
+
+/* ---------- Top bar ---------- */
+.topbar {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 3;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 1.1rem);
+}
+.topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.mark { font-family: var(--display); font-size: var(--s1); text-decoration: none; color: var(--tinta); line-height: 1; }
+.mark small { display: block; font-family: var(--text); font-size: 0.8rem; font-weight: 600; margin-top: 0.3rem; letter-spacing: 0.01em; }
+.nav { display: flex; align-items: center; gap: clamp(0.8rem, 2.4vw, 2rem); font-weight: 600; font-size: var(--s-1); }
+.nav a { text-decoration: none; padding-block: 0.4rem; }
+.nav a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.35em; }
+.nav .ig { display: inline-flex; width: 2.4rem; height: 2.4rem; align-items: center; justify-content: center; border: 2px solid var(--tinta); border-radius: 50%; padding: 0; }
+.nav .ig svg { width: 1.15rem; height: 1.15rem; }
+@media (max-width: 700px) { .nav .hide-sm { display: none; } }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative; z-index: 1;
+  min-height: min(100svh, 62rem);
+  display: flex; flex-direction: column;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 6.5rem);
+  padding-bottom: 6rem;
+}
+.hero::before, .final::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  transition: opacity 1.2s ease;
+}
+.hero::before { background: linear-gradient(180deg, #8CD3E1 0%, var(--ceu) 55%, #E3F5F1 66%, #2A9BC0 66.2%, #0B5B80 100%); }
+.gl-ready .hero::before, .gl-ready .final::before { opacity: 0; }
+.hero h1 {
+  font-size: clamp(3rem, 8.4vw, 6.8rem);
+  line-height: 0.92;
+  color: var(--tinta);
+  text-shadow: 0.045em 0.05em 0 var(--mar);
+  max-width: 9.5ch;
+}
+.hero .lead {
+  margin-top: 1.6rem;
+  max-width: 31rem;
+  font-size: clamp(1.02rem, 1.4vw, 1.18rem);
+  font-weight: 500;
+  line-height: 1.5;
+}
+.hero .actions { margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1.2rem 2rem; }
+.hero .hint {
+  position: absolute; z-index: 2;
+  right: max(clamp(16px, 5vw, 56px), env(safe-area-inset-right, 0px));
+  bottom: 1.4rem;
+  color: var(--espuma); font-size: var(--s-1); font-weight: 600;
+  text-shadow: 0 1px 0 var(--tinta);
+}
+.no-gl .hero .hint { display: none; }
+@media (max-width: 700px) {
+  .hero { padding-top: calc(env(safe-area-inset-top, 0px) + 6.2rem); padding-bottom: 9rem; }
+  .hero .lead { font-size: 1rem; }
+  .hero .hint { left: max(16px, env(safe-area-inset-left, 0px)); right: auto; }
+}
+
+/* ---------- Wave edge between the open sea and the solid bands ---------- */
+.wave-edge {
+  position: absolute; left: 0; right: 0; top: -27px; height: 28px; pointer-events: none;
+  background-repeat: repeat-x; background-size: 120px 28px;
+}
+.band { position: relative; z-index: 1; }
+
+/* ---------- About ---------- */
+.about { background: var(--abissal); color: var(--espuma); padding-block: clamp(4.5rem, 9vw, 8rem) clamp(3rem, 6vw, 5rem); }
+.about .wave-edge { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 28'%3E%3Cpath d='M0 20 Q15 4 34 10 Q46 14 40 21 Q36 25 31 21 Q48 30 60 20 Q75 4 94 10 Q106 14 100 21 Q96 25 91 21 Q108 30 120 20 V28 H0Z' fill='%23052B40'/%3E%3Cpath d='M0 20 Q15 4 34 10 Q46 14 40 21 Q36 25 31 21 Q48 30 60 20 Q75 4 94 10 Q106 14 100 21 Q96 25 91 21 Q108 30 120 20' fill='none' stroke='%23EEF8F6' stroke-width='2'/%3E%3C/svg%3E"); }
+.about .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 6vw, 5.5rem); align-items: center; }
+.portrait { position: relative; justify-self: center; width: min(100%, 25rem); }
+.portrait img {
+  width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 50%;
+  border: 3px solid var(--espuma);
+  box-shadow: 0 0 0 9px var(--abissal), 0 0 0 11px var(--raso);
+}
+.portrait figcaption { margin-top: 1.6rem; text-align: center; font-size: var(--s-1); color: var(--raso); font-weight: 600; }
+.about h2 { font-size: clamp(2.1rem, 4.6vw, var(--s4)); line-height: 1.02; color: var(--espuma); max-width: 14ch; }
+.about .copy { display: grid; gap: 1.15rem; max-width: var(--measure); }
+.about .copy p { color: #CFE5E6; }
+.about .copy p:first-of-type { margin-top: 0.6rem; }
+@media (max-width: 760px) { .about .wrap { grid-template-columns: 1fr; } .portrait { width: min(78%, 20rem); } }
+
+/* ---------- Work ---------- */
+.work { background: var(--abissal); color: var(--espuma); padding-block: clamp(3rem, 6vw, 5rem) clamp(5rem, 10vw, 8rem); }
+.work header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 2rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.work h2 { font-size: clamp(2.1rem, 4.6vw, var(--s4)); line-height: 1; }
+.work header p { color: #CFE5E6; max-width: 24rem; }
+.work header a { color: var(--raso); }
+.gallery { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 3.5rem) clamp(1rem, 2.6vw, 2.2rem); align-items: start; }
+.piece { margin: 0; min-width: 0; }
+.piece.wide { grid-column: span 7; }
+.piece.tall { grid-column: span 5; }
+.piece.offset { margin-top: clamp(0rem, 6vw, 5rem); }
+.piece button { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; position: relative; }
+.piece img { width: 100%; object-fit: cover; background: #0A3A52; }
+.piece.wide img { aspect-ratio: 828 / 730; }
+.piece.tall img { aspect-ratio: 4 / 5; }
+.piece figcaption { display: grid; grid-template-columns: auto 1fr; column-gap: 1rem; align-items: baseline; margin-top: 1rem; }
+.piece h3 { font-size: var(--s2); line-height: 1.1; }
+.piece .where { color: var(--raso); font-size: var(--s-1); font-weight: 600; justify-self: end; text-align: right; }
+.piece .what { grid-column: 1 / -1; color: #CFE5E6; margin-top: 0.35rem; max-width: 30rem; }
+@media (max-width: 760px) {
+  .piece.wide, .piece.tall { grid-column: 1 / -1; }
+  .piece.offset { margin-top: 0; }
+  .piece.tall img { aspect-ratio: 828 / 730; }
+}
+
+/* ---------- Styles ---------- */
+.styles { background: var(--espuma); color: var(--tinta); padding-block: clamp(4.5rem, 9vw, 7.5rem); }
+.styles .wave-edge { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 28'%3E%3Cpath d='M0 20 Q15 4 34 10 Q46 14 40 21 Q36 25 31 21 Q48 30 60 20 Q75 4 94 10 Q106 14 100 21 Q96 25 91 21 Q108 30 120 20 V28 H0Z' fill='%23EEF8F6'/%3E%3Cpath d='M0 20 Q15 4 34 10 Q46 14 40 21 Q36 25 31 21 Q48 30 60 20 Q75 4 94 10 Q106 14 100 21 Q96 25 91 21 Q108 30 120 20' fill='none' stroke='%23071820' stroke-width='2.2'/%3E%3C/svg%3E"); }
+.styles .wrap { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(2rem, 6vw, 5rem); }
+.styles h2 { font-size: clamp(2.1rem, 4.6vw, var(--s4)); line-height: 1; }
+.styles .intro p { margin-top: 1.2rem; max-width: 22rem; }
+.style-list { list-style: none; margin: 0; padding: 0; border-top: 2.5px solid var(--tinta); }
+.style-list li { display: grid; grid-template-columns: minmax(0, 19rem) minmax(0, 1fr); gap: 0.4rem 2rem; padding-block: 1.4rem; border-bottom: 1.5px solid #9DB9BC; align-items: baseline; }
+.style-list li:last-child { border-bottom: 2.5px solid var(--tinta); }
+.style-list h3 { font-size: clamp(1.5rem, 2.4vw, 1.95rem); line-height: 1.05; }
+.style-list .tag { display: inline-block; margin-top: 0.55rem; padding: 0.15rem 0.6rem; background: var(--sol); border: 2px solid var(--tinta); font-size: 0.8rem; font-weight: 700; border-radius: 999px; }
+.style-list p { max-width: 32rem; }
+.style-list li.main h3 { font-size: clamp(2.2rem, 4vw, 3.2rem); color: var(--flash); text-shadow: 0.04em 0.045em 0 var(--tinta); }
+@media (max-width: 760px) { .styles .wrap, .style-list li { grid-template-columns: 1fr; } }
+
+/* ---------- Budget builder ---------- */
+.budget { background: var(--mar); color: var(--tinta); padding-block: clamp(4.5rem, 9vw, 7.5rem); }
+.budget .wave-edge { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 28'%3E%3Cpath d='M0 20 Q15 4 34 10 Q46 14 40 21 Q36 25 31 21 Q48 30 60 20 Q75 4 94 10 Q106 14 100 21 Q96 25 91 21 Q108 30 120 20 V28 H0Z' fill='%231590B8'/%3E%3Cpath d='M0 20 Q15 4 34 10 Q46 14 40 21 Q36 25 31 21 Q48 30 60 20 Q75 4 94 10 Q106 14 100 21 Q96 25 91 21 Q108 30 120 20' fill='none' stroke='%23071820' stroke-width='2.2'/%3E%3C/svg%3E"); }
+.budget .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+.budget h2 { font-size: clamp(2.1rem, 4.6vw, var(--s4)); line-height: 1.02; color: var(--espuma); text-shadow: 0.045em 0.05em 0 var(--tinta); }
+.budget .intro > p { margin-top: 1.2rem; max-width: 26rem; font-weight: 500; }
+.steps { list-style: none; margin: 2.2rem 0 0; padding: 0; display: grid; gap: 1rem; counter-reset: passo; }
+.steps li { display: grid; grid-template-columns: 2.4rem 1fr; gap: 0.9rem; align-items: start; counter-increment: passo; max-width: 26rem; }
+.steps li::before {
+  content: counter(passo); display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%;
+  background: var(--espuma); border: 2px solid var(--tinta); font-family: var(--display); font-size: 1.05rem;
+}
+.steps li span { padding-top: 0.35rem; }
+.phone-line { margin-top: 2rem; font-weight: 600; }
+.phone-line b { font-variant-numeric: tabular-nums; user-select: all; }
+
+.sheet {
+  background: var(--espuma); border: 2.5px solid var(--tinta); box-shadow: 8px 8px 0 var(--tinta);
+  padding: clamp(1.2rem, 3vw, 2.2rem);
+  display: grid; gap: 1.5rem; min-width: 0;
+}
+.field { display: grid; gap: 0.55rem; border: 0; padding: 0; margin: 0; min-width: 0; }
+.field > label, .field legend { font-weight: 700; font-size: var(--s-1); padding: 0; }
+.field input[type="text"], .field textarea {
+  width: 100%; font: inherit; color: var(--tinta); background: #fff;
+  border: 2px solid var(--tinta); border-radius: 4px; padding: 0.7rem 0.85rem;
+}
+.field textarea { min-height: 6.5rem; resize: vertical; }
+.field input::placeholder, .field textarea::placeholder { color: #5E7A80; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chips label { position: relative; }
+.chips input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.chips span {
+  display: inline-block; padding: 0.45rem 0.95rem; border: 2px solid var(--tinta); border-radius: 999px;
+  font-size: var(--s-1); font-weight: 600; background: #fff; cursor: pointer; user-select: none;
+}
+.chips input:checked + span { background: var(--tinta); color: var(--espuma); }
+.chips input:focus-visible + span { outline: 3px solid var(--sol); outline-offset: 2px; }
+.preview { border-top: 2px dashed #8AA9AD; padding-top: 1.2rem; display: grid; gap: 0.5rem; }
+.preview h3 { font-family: var(--text); font-weight: 700; font-size: var(--s-1); }
+.preview pre {
+  margin: 0; white-space: pre-wrap; word-break: break-word; font-family: var(--text); font-size: 0.95rem; line-height: 1.5;
+  background: #DCF4E4; border-radius: 4px 14px 14px 14px; padding: 0.9rem 1rem; max-height: 14rem; overflow: auto;
+}
+.sheet .banner { justify-self: start; }
+@media (max-width: 860px) { .budget .wrap { grid-template-columns: 1fr; } }
+
+/* ---------- Closing scene ---------- */
+.final {
+  position: relative; z-index: 1;
+  min-height: min(92svh, 52rem);
+  display: flex; align-items: flex-start;
+  padding-block: clamp(5rem, 11vw, 8.5rem) 9rem;
+  color: var(--espuma);
+}
+.final::before { background: linear-gradient(180deg, #17365C 0%, #7E5A73 42%, #F39A5B 64%, #F39A5B 64.2%, #1D4F78 66%, #0A2540 100%); }
+.final h2 { font-size: clamp(3rem, 8vw, 6.4rem); line-height: 0.95; text-shadow: 0.045em 0.05em 0 var(--tinta); max-width: 10ch; }
+.final p { margin-top: 1.3rem; max-width: 27rem; font-size: var(--s1); line-height: 1.45; font-weight: 500; text-shadow: 0 1px 0 rgba(7, 24, 32, .5); }
+.final .actions { margin-top: 2.2rem; display: flex; flex-wrap: wrap; gap: 1.2rem 2rem; align-items: center; }
+.final .quiet-link { color: var(--espuma); }
+
+/* ---------- Footer ---------- */
+.foot { position: relative; z-index: 1; background: var(--tinta); color: #B9D3D6; padding-block: 2.4rem calc(2.4rem + env(safe-area-inset-bottom, 0px)); font-size: var(--s-1); }
+.foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem 2rem; align-items: center; }
+.foot .mark { color: var(--espuma); }
+.foot ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.6rem 1.8rem; margin: 0; padding: 0; }
+.foot a { text-decoration: none; font-weight: 600; }
+.foot a:hover { text-decoration: underline; }
+
+/* ---------- Floating budget button ---------- */
+.float-wa {
+  position: fixed; z-index: 20;
+  right: calc(1rem + env(safe-area-inset-right, 0px));
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.75rem 1.15rem 0.75rem 0.95rem;
+  background: var(--sol); color: var(--tinta); border: 2.5px solid var(--tinta); border-radius: 999px;
+  box-shadow: 4px 4px 0 var(--tinta);
+  font-weight: 750; text-decoration: none; font-size: var(--s-1);
+  transform: translateY(160%); transition: transform .35s cubic-bezier(.2,.9,.3,1.2);
+}
+.float-wa svg { width: 1.4rem; height: 1.4rem; }
+.float-wa.on { transform: none; }
+@media (prefers-reduced-motion: reduce) { .float-wa { transition: none; } }
+
+/* ---------- Lightbox ---------- */
+.lightbox { border: 0; padding: 0; background: transparent; max-width: min(92vw, 60rem); width: 100%; color: var(--espuma); }
+.lightbox::backdrop { background: rgba(3, 20, 30, .92); }
+.lightbox figure { margin: 0; display: grid; gap: 0.9rem; }
+.lightbox img { width: 100%; max-height: 74vh; object-fit: contain; background: #0A3A52; }
+.lightbox figcaption { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; align-items: baseline; }
+.lightbox figcaption strong { font-family: var(--display); font-weight: 400; font-size: var(--s2); }
+.lightbox figcaption span { color: #CFE5E6; }
+.lb-controls { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1rem; }
+.lb-controls button {
+  font: inherit; font-weight: 700; color: var(--espuma); background: none; border: 2px solid var(--espuma);
+  border-radius: 999px; padding: 0.5rem 1.1rem; cursor: pointer;
+}
+.lb-controls button:hover { background: var(--espuma); color: var(--tinta); }
+</style>
+</head>
+<body>
+
+<canvas id="mar3d" aria-hidden="true"></canvas>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="mark" href="#inicio">Caio Bastos<small>Tattoo na Barra, Salvador</small></a>
+    <nav class="nav" aria-label="Seções">
+      <a class="hide-sm" href="#trabalhos">Trabalhos</a>
+      <a class="hide-sm" href="#estilos">Estilos</a>
+      <a href="#orcamento">Orçamento</a>
+      <a class="ig" href="https://www.instagram.com/caiobastostattoo/" target="_blank" rel="noopener" aria-label="Instagram @caiobastostattoo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="inicio" data-sea>
+    <div class="wrap">
+      <h1>Old school com sal na pele.</h1>
+      <p class="lead">Sou o Caio, tatuador na Barra, em Salvador. Meu forte é o old school: contorno grosso, preto bem assentado e sombra pontilhada que continua bonita daqui a vinte anos. Também faço blackwork, lettering e peças ornamentais.</p>
+      <div class="actions">
+        <a class="banner js-wa" href="https://wa.me/5571992932165" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6a9.4 9.4 0 0 0-8.1 14.2L2.6 21.4l4.7-1.2A9.4 9.4 0 1 0 12 2.6Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.7 7.5c.3-.3.8-.2 1 .1l.9 1.9c.1.3.1.6-.2.8l-.6.6c.6 1.3 1.7 2.4 3 3l.6-.6c.2-.2.5-.3.8-.2l1.9.9c.4.2.5.7.1 1-.9.9-2.1 1.2-3.2.7-2.2-1-4-2.8-5-5-.5-1.1-.2-2.3.7-3.2Z" fill="currentColor"/></svg>
+          Pedir orçamento no WhatsApp
+        </a>
+        <a class="quiet-link" href="#trabalhos">Ver trabalhos</a>
+      </div>
+    </div>
+    <p class="hint" aria-hidden="true">Toque ou passe o mouse na água.</p>
+  </section>
+
+  <section class="band about" id="sobre" aria-labelledby="sobre-t">
+    <div class="wave-edge"></div>
+    <div class="wrap">
+      <figure class="portrait">
+        <img src="assets/caio.webp" width="536" height="536" alt="Caio Bastos sorrindo, com os braços tatuados, dentro de uma água azul-turquesa." loading="lazy" decoding="async">
+        <figcaption>Caio Bastos, @caiobastostattoo</figcaption>
+      </figure>
+      <div class="copy">
+        <h2 id="sobre-t">Desenho de marinheiro, feito de frente pro mar.</h2>
+        <p>O old school nasceu no braço de quem vivia no mar: âncoras, andorinhas, faróis e navios, desenhados para atravessar o oceano e continuar legíveis por décadas.</p>
+        <p>É essa escola que eu sigo. Linha firme, poucas cores, preto que assenta e nenhum detalhe que some com o tempo. Cada desenho é feito para a parte do corpo onde ele vai morar.</p>
+        <p>Fora do estúdio, estou na água, correndo na orla ou atrás da próxima onda. Muito do que eu desenho vem daí.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band work" id="trabalhos" aria-labelledby="trabalhos-t">
+    <div class="wrap">
+      <header>
+        <h2 id="trabalhos-t">Trabalhos recentes</h2>
+        <p>Toque numa foto para ampliar. Tem muito mais no Instagram, <a href="https://www.instagram.com/caiobastostattoo/" target="_blank" rel="noopener">@caiobastostattoo</a>.</p>
+      </header>
+      <div class="gallery">
+        <figure class="piece wide">
+          <button type="button" data-lb="0" aria-label="Ampliar foto do farol">
+            <img src="assets/farol.webp" width="828" height="730" alt="Tatuagem old school de um farol entre ondas e corda, com uma flor na base, na panturrilha." loading="lazy" decoding="async">
+          </button>
+          <figcaption><h3>Farol</h3><span class="where">Panturrilha, 2024</span><p class="what">Farol entre ondas e corda, com flor na base. Old school em preto.</p></figcaption>
+        </figure>
+        <figure class="piece tall offset">
+          <button type="button" data-lb="1" aria-label="Ampliar foto do doberman">
+            <img src="assets/doberman.webp" width="828" height="730" alt="Tatuagem old school de um doberman com corrente no pescoço, no antebraço." loading="lazy" decoding="async">
+          </button>
+          <figcaption><h3>Doberman</h3><span class="where">Antebraço, 2024</span><p class="what">Parte de um fechamento todo em old school.</p></figcaption>
+        </figure>
+        <figure class="piece tall">
+          <button type="button" data-lb="2" aria-label="Ampliar foto da tatuagem Trust no one">
+            <img src="assets/trust-no-one.webp" width="828" height="730" alt="Tatuagem de um aperto de mão com uma serpente escondida e o lettering Trust no one, no braço." loading="lazy" decoding="async">
+          </button>
+          <figcaption><h3>Trust no one</h3><span class="where">Braço, 2023</span><p class="what">Aperto de mão com serpente escondida e lettering tradicional.</p></figcaption>
+        </figure>
+        <figure class="piece wide offset">
+          <button type="button" data-lb="3" aria-label="Ampliar foto do Barong">
+            <img src="assets/barong.webp" width="828" height="730" alt="Tatuagem ornamental em preto de uma máscara Barong balinesa, acima do joelho." loading="lazy" decoding="async">
+          </button>
+          <figcaption><h3>Barong</h3><span class="where">Coxa, 2025</span><p class="what">Máscara balinesa de proteção, toda em preto e ornamental.</p></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="band styles" id="estilos" aria-labelledby="estilos-t">
+    <div class="wave-edge"></div>
+    <div class="wrap">
+      <div class="intro">
+        <h2 id="estilos-t">O que eu tatuo</h2>
+        <p>O old school é a casa. Os outros estilos aparecem quando a ideia pede.</p>
+      </div>
+      <ul class="style-list">
+        <li class="main">
+          <div><h3>Old school</h3><span class="tag">Especialidade</span></div>
+          <p>Contorno grosso, sombra pontilhada e os ícones clássicos: farol, âncora, andorinha, rosa, pantera, navio. Fica legível de longe e envelhece bem.</p>
+        </li>
+        <li><h3>Blackwork</h3><p>Preto sólido e contraste alto, para peças que precisam de presença.</p></li>
+        <li><h3>Lettering</h3><p>Nomes e frases com letra desenhada à mão, no jeito tradicional.</p></li>
+        <li><h3>Ornamental</h3><p>Máscaras, mandalas e padrões, como o Barong balinês.</p></li>
+        <li><h3>Fechamentos</h3><p>Braço ou perna inteiros planejados como um conjunto, sessão após sessão.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band budget" id="orcamento" aria-labelledby="orcamento-t">
+    <div class="wave-edge"></div>
+    <div class="wrap">
+      <div class="intro">
+        <h2 id="orcamento-t">Monte seu pedido de orçamento</h2>
+        <p>Escolha as opções, conte sua ideia e a mensagem sai pronta no WhatsApp. Fotos de referência e do local você manda direto na conversa.</p>
+        <ol class="steps">
+          <li><span>Você monta o pedido aqui e envia pelo WhatsApp.</span></li>
+          <li><span>A gente conversa e você manda as referências.</span></li>
+          <li><span>Eu respondo com valor e datas livres.</span></li>
+          <li><span>Marcamos a sessão no estúdio, na Barra.</span></li>
+        </ol>
+        <p class="phone-line">WhatsApp: <b>+55 71 99293-2165</b></p>
+      </div>
+
+      <form class="sheet" id="pedido" novalidate>
+        <div class="field">
+          <label for="f-nome">Seu nome</label>
+          <input type="text" id="f-nome" name="nome" autocomplete="given-name" placeholder="Como posso te chamar?">
+        </div>
+        <fieldset class="field">
+          <legend>Estilo</legend>
+          <div class="chips">
+            <label><input type="radio" id="f-est-1" name="estilo" value="Old school" checked><span>Old school</span></label>
+            <label><input type="radio" id="f-est-2" name="estilo" value="Blackwork"><span>Blackwork</span></label>
+            <label><input type="radio" id="f-est-3" name="estilo" value="Lettering"><span>Lettering</span></label>
+            <label><input type="radio" id="f-est-4" name="estilo" value="Ornamental"><span>Ornamental</span></label>
+            <label><input type="radio" id="f-est-5" name="estilo" value="Ainda não sei"><span>Ainda não sei</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="field">
+          <legend>Local do corpo</legend>
+          <div class="chips">
+            <label><input type="radio" id="f-loc-1" name="local" value="Braço"><span>Braço</span></label>
+            <label><input type="radio" id="f-loc-2" name="local" value="Antebraço" checked><span>Antebraço</span></label>
+            <label><input type="radio" id="f-loc-3" name="local" value="Perna"><span>Perna</span></label>
+            <label><input type="radio" id="f-loc-4" name="local" value="Panturrilha"><span>Panturrilha</span></label>
+            <label><input type="radio" id="f-loc-5" name="local" value="Costas"><span>Costas</span></label>
+            <label><input type="radio" id="f-loc-6" name="local" value="Peito"><span>Peito</span></label>
+            <label><input type="radio" id="f-loc-7" name="local" value="Outro"><span>Outro</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="field">
+          <legend>Tamanho aproximado</legend>
+          <div class="chips">
+            <label><input type="radio" id="f-tam-1" name="tamanho" value="Pequena, até 10 cm"><span>Até 10 cm</span></label>
+            <label><input type="radio" id="f-tam-2" name="tamanho" value="Média, de 10 a 20 cm" checked><span>10 a 20 cm</span></label>
+            <label><input type="radio" id="f-tam-3" name="tamanho" value="Grande, mais de 20 cm"><span>Mais de 20 cm</span></label>
+            <label><input type="radio" id="f-tam-4" name="tamanho" value="Fechamento"><span>Fechamento</span></label>
+          </div>
+        </fieldset>
+        <div class="field">
+          <label for="f-ideia">Sua ideia</label>
+          <textarea id="f-ideia" name="ideia" placeholder="Ex.: um farol com ondas e uma andorinha, no antebraço esquerdo."></textarea>
+        </div>
+        <div class="preview" aria-live="polite">
+          <h3>Mensagem que vai para o WhatsApp</h3>
+          <pre id="f-preview"></pre>
+        </div>
+        <a class="banner" id="f-enviar" href="https://wa.me/5571992932165" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6a9.4 9.4 0 0 0-8.1 14.2L2.6 21.4l4.7-1.2A9.4 9.4 0 1 0 12 2.6Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.7 7.5c.3-.3.8-.2 1 .1l.9 1.9c.1.3.1.6-.2.8l-.6.6c.6 1.3 1.7 2.4 3 3l.6-.6c.2-.2.5-.3.8-.2l1.9.9c.4.2.5.7.1 1-.9.9-2.1 1.2-3.2.7-2.2-1-4-2.8-5-5-.5-1.1-.2-2.3.7-3.2Z" fill="currentColor"/></svg>
+          Enviar pelo WhatsApp
+        </a>
+      </form>
+    </div>
+  </section>
+
+  <section class="final" id="contato" data-sea aria-labelledby="contato-t">
+    <div class="wrap">
+      <h2 id="contato-t">Bora riscar?</h2>
+      <p>Estúdio na Barra, a poucos passos do farol. Manda sua ideia que eu respondo com valor e datas.</p>
+      <div class="actions">
+        <a class="banner js-wa" href="https://wa.me/5571992932165" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6a9.4 9.4 0 0 0-8.1 14.2L2.6 21.4l4.7-1.2A9.4 9.4 0 1 0 12 2.6Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.7 7.5c.3-.3.8-.2 1 .1l.9 1.9c.1.3.1.6-.2.8l-.6.6c.6 1.3 1.7 2.4 3 3l.6-.6c.2-.2.5-.3.8-.2l1.9.9c.4.2.5.7.1 1-.9.9-2.1 1.2-3.2.7-2.2-1-4-2.8-5-5-.5-1.1-.2-2.3.7-3.2Z" fill="currentColor"/></svg>
+          Pedir orçamento no WhatsApp
+        </a>
+        <a class="quiet-link" href="https://www.instagram.com/caiobastostattoo/" target="_blank" rel="noopener">Seguir no Instagram</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <a class="mark" href="#inicio">Caio Bastos</a>
+    <ul>
+      <li>Barra, Salvador, BA</li>
+      <li><a class="js-wa" href="https://wa.me/5571992932165" target="_blank" rel="noopener">WhatsApp +55 71 99293-2165</a></li>
+      <li><a href="https://www.instagram.com/caiobastostattoo/" target="_blank" rel="noopener">Instagram @caiobastostattoo</a></li>
+    </ul>
+  </div>
+</footer>
+
+<a class="float-wa js-wa" id="float-wa" href="https://wa.me/5571992932165" target="_blank" rel="noopener" aria-label="Pedir orçamento no WhatsApp" tabindex="-1">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6a9.4 9.4 0 0 0-8.1 14.2L2.6 21.4l4.7-1.2A9.4 9.4 0 1 0 12 2.6Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.7 7.5c.3-.3.8-.2 1 .1l.9 1.9c.1.3.1.6-.2.8l-.6.6c.6 1.3 1.7 2.4 3 3l.6-.6c.2-.2.5-.3.8-.2l1.9.9c.4.2.5.7.1 1-.9.9-2.1 1.2-3.2.7-2.2-1-4-2.8-5-5-.5-1.1-.2-2.3.7-3.2Z" fill="currentColor"/></svg>
+  Orçamento
+</a>
+
+<dialog class="lightbox" id="lightbox" aria-label="Foto ampliada">
+  <figure>
+    <img id="lb-img" src="" alt="">
+    <figcaption><strong id="lb-title"></strong><span id="lb-where"></span></figcaption>
+  </figure>
+  <div class="lb-controls">
+    <button type="button" id="lb-prev">Anterior</button>
+    <button type="button" id="lb-close">Fechar</button>
+    <button type="button" id="lb-next">Próxima</button>
+  </div>
+</dialog>
+
+<script>
+/* ---------- Page behaviour (no 3D) ---------- */
+(function () {
+  var PHONE = "5571992932165";
+  var waUrl = function (msg) { return "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg); };
+  var GENERIC = "Olá, Caio! Vim pelo site e quero fazer um orçamento de tatuagem.";
+  document.querySelectorAll(".js-wa").forEach(function (a) { a.href = waUrl(GENERIC); });
+
+  /* Budget builder */
+  var form = document.getElementById("pedido");
+  var out = document.getElementById("f-preview");
+  var send = document.getElementById("f-enviar");
+  function compose() {
+    var d = new FormData(form);
+    var nome = (d.get("nome") || "").toString().trim();
+    var ideia = (d.get("ideia") || "").toString().trim();
+    var lines = [nome ? "Olá, Caio! Aqui é " + nome + ". Vim pelo site e quero um orçamento." : "Olá, Caio! Vim pelo site e quero um orçamento.", ""];
+    if (d.get("estilo")) lines.push("Estilo: " + d.get("estilo"));
+    if (d.get("local")) lines.push("Local: " + d.get("local"));
+    if (d.get("tamanho")) lines.push("Tamanho: " + d.get("tamanho"));
+    lines.push("Ideia: " + (ideia || "vou explicar por aqui"));
+    var msg = lines.join("\n");
+    out.textContent = msg;
+    send.href = waUrl(msg);
+  }
+  form.addEventListener("input", compose);
+  form.addEventListener("change", compose);
+  form.addEventListener("submit", function (e) { e.preventDefault(); });
+  compose();
+
+  /* Floating button after the hero */
+  var fl = document.getElementById("float-wa");
+  var hero = document.getElementById("inicio");
+  var finalSec = document.getElementById("contato");
+  var heroIn = true, finalIn = false;
+  function syncFloat() { var on = !heroIn && !finalIn; fl.classList.toggle("on", on); fl.tabIndex = on ? 0 : -1; }
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.target === hero) heroIn = e.isIntersecting; else finalIn = e.isIntersecting; }); syncFloat(); }, { threshold: 0.15 }).observe(hero);
+    new IntersectionObserver(function (es) { es.forEach(function (e) { finalIn = e.isIntersecting; }); syncFloat(); }, { threshold: 0.3 }).observe(finalSec);
+  }
+
+  /* Lightbox */
+  var pieces = Array.prototype.map.call(document.querySelectorAll(".piece"), function (f) {
+    var img = f.querySelector("img");
+    return { src: img.getAttribute("src"), alt: img.alt, title: f.querySelector("h3").textContent, where: f.querySelector(".where").textContent + ". " + f.querySelector(".what").textContent };
+  });
+  var lb = document.getElementById("lightbox"), lbImg = document.getElementById("lb-img");
+  var cur = 0, opener = null;
+  function show(i) {
+    cur = (i + pieces.length) % pieces.length;
+    var p = pieces[cur];
+    lbImg.src = p.src; lbImg.alt = p.alt;
+    document.getElementById("lb-title").textContent = p.title;
+    document.getElementById("lb-where").textContent = p.where;
+  }
+  document.querySelectorAll("[data-lb]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      opener = b; show(+b.dataset.lb);
+      if (lb.showModal) lb.showModal(); else lb.setAttribute("open", "");
+    });
+  });
+  document.getElementById("lb-prev").onclick = function () { show(cur - 1); };
+  document.getElementById("lb-next").onclick = function () { show(cur + 1); };
+  document.getElementById("lb-close").onclick = function () { lb.close(); };
+  lb.addEventListener("click", function (e) { if (e.target === lb) lb.close(); });
+  lb.addEventListener("keydown", function (e) { if (e.key === "ArrowLeft") show(cur - 1); if (e.key === "ArrowRight") show(cur + 1); });
+  lb.addEventListener("close", function () { if (opener) opener.focus(); });
+})();
+</script>
+
+<script type="module">
+/* ---------- The 3D sea: a Barra afternoon drawn in tattoo stipple ---------- */
+const canvas = document.getElementById("mar3d");
+const root = document.documentElement;
+let THREE;
+try {
+  THREE = await import("https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js");
+} catch (e) { root.classList.add("no-gl"); }
+
+if (THREE) start();
+
+function start() {
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
+  } catch (e) { root.classList.add("no-gl"); return; }
+  THREE.ColorManagement.enabled = false;
+  renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const small = Math.min(innerWidth, innerHeight) < 700;
+  const dpr = Math.min(devicePixelRatio || 1, small ? 2 : 1.75);
+  renderer.setPixelRatio(dpr);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 1500);
+  camera.rotation.order = "YXZ";
+
+  const C = (h) => new THREE.Color(h);
+  const DAY = { zenith: "#86CFE0", horizon: "#E4F6F2", sun: "#F6C04A", rays: "#FFF7DD", deep: "#0B5B80", mid: "#1590B8", lite: "#63CCDC", foam: "#F3FBF9", glint: "#FFFFFF", ink: "#071820", stone: "#C9D6CF", glass: "#F6E7B0" };
+  const DUSK = { zenith: "#17365C", horizon: "#F39A5B", sun: "#FFD36E", rays: "#F2784A", deep: "#0A2540", mid: "#1D4F78", lite: "#E9925E", foam: "#FFE6C8", glint: "#FFE3A6", ink: "#06121F", stone: "#9E8B95", glass: "#FFD36E" };
+  const pal = {}; for (const k in DAY) pal[k] = C(DAY[k]);
+  const dayC = {}, duskC = {}; for (const k in DAY) { dayC[k] = C(DAY[k]); duskC[k] = C(DUSK[k]); }
+
+  const sunDir = new THREE.Vector3();
+  const U = {
+    uTime: { value: 0 }, uDpr: { value: dpr }, uSun: { value: sunDir }, uCam: { value: camera.position },
+    uZenith: { value: pal.zenith }, uHorizon: { value: pal.horizon }, uSunCol: { value: pal.sun }, uRays: { value: pal.rays },
+    uDeep: { value: pal.deep }, uMid: { value: pal.mid }, uLite: { value: pal.lite }, uFoam: { value: pal.foam },
+    uGlint: { value: pal.glint }, uInk: { value: pal.ink }, uDusk: { value: 0 },
+    uRip: { value: Array.from({ length: 8 }, () => new THREE.Vector4(0, 0, -100, 0)) }
+  };
+
+  const HALFTONE = `
+    uniform float uDpr;
+    float halftone(float k, float cell){
+      vec2 uv = gl_FragCoord.xy / (cell * uDpr);
+      uv = mat2(0.7071, -0.7071, 0.7071, 0.7071) * uv;
+      vec2 g = fract(uv) - 0.5;
+      float r = sqrt(clamp(k, 0.0, 1.0)) * 0.68;
+      float d = length(g);
+      float aa = 1.0 / (cell * uDpr);
+      return 1.0 - smoothstep(r - aa, r + aa, d);
+    }`;
+
+  /* Sky dome with an old school sunburst */
+  const sky = new THREE.Mesh(
+    new THREE.SphereGeometry(900, 48, 24),
+    new THREE.ShaderMaterial({
+      side: THREE.BackSide, depthWrite: false, uniforms: U,
+      vertexShader: `varying vec3 vDir; void main(){ vDir = position; vec4 p = projectionMatrix * modelViewMatrix * vec4(position,1.0); gl_Position = p.xyww; }`,
+      fragmentShader: `
+        uniform vec3 uSun, uZenith, uHorizon, uSunCol, uRays, uInk; uniform float uTime, uDusk;
+        varying vec3 vDir;
+        void main(){
+          vec3 d = normalize(vDir);
+          float y = max(d.y, 0.0);
+          vec3 col = mix(uHorizon, uZenith, pow(y, 0.55));
+          float ang = acos(clamp(dot(d, uSun), -1.0, 1.0));
+          vec3 t1 = normalize(cross(uSun, vec3(0.0, 1.0, 0.0)));
+          vec3 t2 = cross(t1, uSun);
+          float phi = atan(dot(d, t2), dot(d, t1));
+          float s = fract(phi * 18.0 / 6.28318 + uTime * 0.006);
+          float aw = fwidth(s) * 1.2;
+          float ray = smoothstep(0.5 - aw, 0.5 + aw, s) * (1.0 - smoothstep(0.5 - aw + 0.5, 0.5 + aw + 0.5, s));
+          float mask = (1.0 - smoothstep(0.1, 0.8, ang)) * smoothstep(0.07, 0.095, ang);
+          col = mix(col, uRays, ray * mask * mix(0.45, 0.55, uDusk));
+          float R = 0.056;
+          float fw = fwidth(ang) * 1.5;
+          float disc = 1.0 - smoothstep(R - fw, R + fw, ang);
+          float ring = 1.0 - smoothstep(fw * 0.8, fw * 2.4, abs(ang - R));
+          col = mix(col, uSunCol, disc);
+          col = mix(col, uInk, ring * 0.9);
+          if (d.y < 0.0) col = uHorizon;
+          gl_FragColor = vec4(col, 1.0);
+        }`
+    })
+  );
+  sky.renderOrder = -1;
+  scene.add(sky);
+
+  /* Ocean: a trapezoid grid that is dense near the camera and sparse at the horizon */
+  function oceanGeometry(nx, nz) {
+    const pos = new Float32Array((nx + 1) * (nz + 1) * 3);
+    let k = 0;
+    for (let j = 0; j <= nz; j++) {
+      const v = j / nz, dist = 1 + 260 * v * v, z = 14 - dist, halfW = 22 + 1.9 * dist;
+      for (let i = 0; i <= nx; i++) { pos[k++] = (i / nx * 2 - 1) * halfW; pos[k++] = 0; pos[k++] = z; }
+    }
+    const idx = [];
+    for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) {
+      const a = j * (nx + 1) + i, b = a + 1, c = a + nx + 1, d = c + 1;
+      idx.push(a, b, c, b, d, c);
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+    g.setIndex(idx);
+    return g;
+  }
+  const ocean = new THREE.Mesh(
+    small ? oceanGeometry(150, 170) : oceanGeometry(230, 250),
+    new THREE.ShaderMaterial({
+      uniforms: U,
+      vertexShader: `
+        uniform float uTime; uniform vec4 uRip[8];
+        varying vec3 vPos; varying vec3 vN; varying float vH;
+        float wv(vec2 p, vec2 d, float k, float sp, float a){
+          float s = sin(dot(p, d) * k + uTime * sp);
+          return a * (pow(s * 0.5 + 0.5, 2.4) * 2.0 - 0.55);
+        }
+        float rip(vec2 p){
+          float h = 0.0;
+          for (int i = 0; i < 8; i++){
+            vec4 r = uRip[i];
+            float age = uTime - r.z;
+            if (age < 0.0 || age > 7.0) continue;
+            float d = distance(p, r.xy);
+            float x = d - age * 3.4;
+            h += exp(-x * x * 0.3) * exp(-age * 0.5) * r.w / (1.0 + d * 0.12) * cos(x * 1.6);
+          }
+          return h;
+        }
+        float H(vec2 p){
+          return wv(p, vec2(0.94, 0.34), 0.30, 0.85, 0.50)
+               + wv(p, vec2(-0.51, 0.86), 0.52, 1.20, 0.28)
+               + wv(p, vec2(0.20, 0.98), 1.05, 1.70, 0.13)
+               + wv(p, vec2(0.71, 0.71), 2.10, 2.40, 0.05)
+               + rip(p);
+        }
+        void main(){
+          vec2 p = position.xz;
+          float e = 0.12;
+          float h = H(p);
+          vN = normalize(vec3(h - H(p + vec2(e, 0.0)), e, h - H(p + vec2(0.0, e))));
+          vH = h;
+          vPos = vec3(p.x, h, p.y);
+          gl_Position = projectionMatrix * viewMatrix * vec4(vPos, 1.0);
+        }`,
+      fragmentShader: HALFTONE + `
+        uniform vec3 uSun, uCam, uDeep, uMid, uLite, uFoam, uInk, uHorizon, uGlint; uniform float uDusk;
+        varying vec3 vPos; varying vec3 vN; varying float vH;
+        void main(){
+          vec3 n = normalize(vN);
+          vec3 v = normalize(uCam - vPos);
+          float dist = length(vPos - uCam);
+          float fog = smoothstep(20.0, 150.0, dist);
+          float dif = dot(n, uSun) * 0.5 + 0.5;
+          float fres = pow(1.0 - clamp(dot(n, v), 0.0, 1.0), 4.0);
+          float L = dif * 0.9 + fres * 0.45 - 0.2;
+          float aw = fwidth(L);
+          vec3 col = mix(uDeep, uMid, smoothstep(0.2 - aw, 0.2 + aw, L));
+          col = mix(col, uLite, smoothstep(0.52 - aw, 0.52 + aw, L));
+          float shade = 1.0 - smoothstep(0.0, 0.5, L);
+          col = mix(col, uInk, halftone(shade * 0.75, 5.0) * 0.9 * (1.0 - fog));
+          vec3 hv = normalize(uSun + v);
+          float sp = pow(max(dot(n, hv), 0.0), 260.0);
+          col = mix(col, uGlint, smoothstep(0.25, 0.5, sp));
+          float th = 0.74;
+          float hw = max(fwidth(vH), 0.0005);
+          float foam = smoothstep(th - hw, th + hw, vH);
+          float line = 1.0 - smoothstep(hw * 0.7, hw * 2.0, abs(vH - th));
+          col = mix(col, uFoam, foam * (1.0 - fog * 0.7));
+          col = mix(col, uInk, line * (1.0 - fog));
+          col = mix(col, uHorizon, fog);
+          gl_FragColor = vec4(col, 1.0);
+        }`
+    })
+  );
+  ocean.frustumCulled = false;
+  scene.add(ocean);
+
+  /* Farol da Barra: fort, striped tower, lantern */
+  const toonMat = (hex, emitKey) => new THREE.ShaderMaterial({
+    uniforms: Object.assign({ uColor: { value: C(hex) }, uEmit: { value: 0 } }, U),
+    vertexShader: `varying vec3 vN; varying vec3 vPos; void main(){ vN = normalize(mat3(modelMatrix) * normal); vec4 w = modelMatrix * vec4(position,1.0); vPos = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }`,
+    fragmentShader: HALFTONE + `
+      uniform vec3 uColor, uInk, uHorizon, uSun, uCam; uniform float uEmit;
+      varying vec3 vN; varying vec3 vPos;
+      void main(){
+        vec3 n = normalize(vN);
+        float dif = dot(n, uSun);
+        float lit = smoothstep(-0.04, 0.04, dif);
+        vec3 col = mix(uColor * 0.78, uColor, lit);
+        col = mix(col, uInk, halftone((1.0 - lit) * 0.55, 3.6) * (1.0 - uEmit));
+        col = mix(col, uColor, uEmit);
+        col = mix(col, uHorizon, smoothstep(70.0, 220.0, length(vPos - uCam)) * 0.6);
+        gl_FragColor = vec4(col, 1.0);
+      }`
+  });
+  const outlineMat = new THREE.ShaderMaterial({
+    side: THREE.BackSide, uniforms: { uInk: U.uInk, uW: { value: 0.07 } },
+    vertexShader: `uniform float uW; void main(){ vec3 p = position + normal * uW; gl_Position = projectionMatrix * modelViewMatrix * vec4(p,1.0); }`,
+    fragmentShader: `uniform vec3 uInk; void main(){ gl_FragColor = vec4(uInk, 1.0); }`
+  });
+  const farol = new THREE.Group();
+  const add = (geo, mat, y, outline = true) => {
+    const m = new THREE.Mesh(geo, mat); m.position.y = y; farol.add(m);
+    if (outline) { const o = new THREE.Mesh(geo, outlineMat); o.position.y = y; farol.add(o); }
+    return m;
+  };
+  const stoneMat = toonMat(DAY.stone);
+  const whiteMat = toonMat("#F4F7F2");
+  const inkMat = toonMat("#0B1C24");
+  const glassMat = toonMat(DAY.glass);
+  add(new THREE.CylinderGeometry(7.4, 8.6, 3.2, 8), stoneMat, 0.4);
+  add(new THREE.CylinderGeometry(4.2, 4.6, 0.9, 8), stoneMat, 2.45);
+  const towerBase = 2.9, towerH = 7.6, rB = 1.35, rT = 0.98;
+  add(new THREE.CylinderGeometry(rT, rB, towerH, 24), whiteMat, towerBase + towerH / 2);
+  const rAt = (h) => rB + (rT - rB) * (h / towerH);
+  add(new THREE.CylinderGeometry(rAt(4.4) + 0.05, rAt(2.6) + 0.05, 1.8, 24), inkMat, towerBase + 3.5, false);
+  add(new THREE.CylinderGeometry(1.5, 1.5, 0.24, 24), inkMat, towerBase + towerH + 0.12);
+  const lantern = add(new THREE.CylinderGeometry(0.72, 0.72, 1.1, 12), glassMat, towerBase + towerH + 0.8);
+  add(new THREE.ConeGeometry(0.95, 0.85, 12), inkMat, towerBase + towerH + 1.78);
+  [[-6, -0.2, 6, 1.6], [7, -0.3, 5, 1.3], [-8.5, -0.4, -2, 1.5], [2, -0.3, 8.2, 1.1]].forEach(([x, y, z, s]) => {
+    const g = new THREE.DodecahedronGeometry(s, 0);
+    const r = new THREE.Mesh(g, inkMat); r.position.set(x, y, z); r.rotation.set(x, z, s); farol.add(r);
+  });
+  /* Light beams, visible at dusk */
+  const beamMat = new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
+    uniforms: { uCol: U.uSunCol, uOp: { value: 0 } },
+    vertexShader: `varying float vV; void main(){ vV = uv.y; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,
+    fragmentShader: `uniform vec3 uCol; uniform float uOp; varying float vV; void main(){ gl_FragColor = vec4(uCol * pow(vV, 1.6) * uOp, 1.0); }`
+  });
+  const beams = new THREE.Group();
+  beams.position.y = lantern.position.y;
+  for (const s of [1, -1]) {
+    const g = new THREE.ConeGeometry(4, 60, 24, 1, true);
+    g.translate(0, -30, 0); g.rotateZ(s * Math.PI / 2);
+    beams.add(new THREE.Mesh(g, beamMat));
+  }
+  farol.add(beams);
+  farol.position.set(26, 0, -66);
+  scene.add(farol);
+
+  /* Camera rig and scroll mapping */
+  const heroEl = document.getElementById("inicio");
+  const finalEl = document.getElementById("contato");
+  const ray = new THREE.Raycaster();
+  let pointer = { x: 0, y: 0, sx: 0, sy: 0 };
+  let tHalfV = Math.tan(THREE.MathUtils.degToRad(22.5));
+
+  function layout() {
+    const w = innerWidth, h = innerHeight, aspect = w / h;
+    renderer.setSize(w, h, false);
+    camera.aspect = aspect;
+    camera.fov = aspect < 0.8 ? 58 : 45;
+    camera.updateProjectionMatrix();
+    tHalfV = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+    const tHalfH = tHalfV * aspect;
+    farol.position.x = 66 * Math.min(0.62 * tHalfH, 0.7) + (aspect < 0.8 ? 2 : 0);
+  }
+  layout();
+  addEventListener("resize", () => { layout(); if (!running) frame(performance.now()); });
+
+  const ease = (t) => t * t * (3 - 2 * t);
+  const lerp = THREE.MathUtils.lerp;
+  function sunFrom(azDeg, elDeg) {
+    const a = THREE.MathUtils.degToRad(azDeg), e = THREE.MathUtils.degToRad(elDeg);
+    return sunDir.set(Math.sin(a) * Math.cos(e), Math.sin(e), -Math.cos(a) * Math.cos(e)).normalize();
+  }
+
+  function finalProgress() {
+    const r = finalEl.getBoundingClientRect();
+    return Math.min(Math.max(1 - r.top / innerHeight, 0), 1);
+  }
+
+  function updateScene(t) {
+    const k = ease(finalProgress());
+    U.uDusk.value = k;
+    for (const key in pal) pal[key].copy(dayC[key]).lerp(duskC[key], k);
+    stoneMat.uniforms.uColor.value.copy(pal.stone);
+    glassMat.uniforms.uColor.value.copy(pal.glass);
+    glassMat.uniforms.uEmit.value = k;
+    beamMat.uniforms.uOp.value = k * 0.22;
+    beams.rotation.y = t * 0.6;
+
+    const aspect = camera.aspect;
+    const horizonNdc = aspect < 0.8 ? 0.5 : 0.4;
+    const pitch0 = Math.atan(horizonNdc * tHalfV);
+    sunFrom(lerp(aspect < 0.8 ? 6 : 10, 20, k), lerp(10.5, 2.2, k));
+
+    const hx = 0, hy = 3.0, hz = 12;
+    const fx = 6, fy = 2.6, fz = 6;
+    const lx = farol.position.x, lz = farol.position.z;
+    const yawToLh = Math.atan2(-(lx - fx), -(lz - fz));
+    const finalYaw = yawToLh + (aspect < 0.8 ? 0.0 : 0.22);
+    const bob = reduce ? 0 : Math.sin(t * 0.7) * 0.07;
+    camera.position.set(lerp(hx, fx, k), lerp(hy, fy, k) + bob, lerp(hz, fz, k));
+    pointer.sx += (pointer.x - pointer.sx) * 0.05;
+    pointer.sy += (pointer.y - pointer.sy) * 0.05;
+    camera.rotation.set(
+      lerp(pitch0, Math.atan((aspect < 0.8 ? 0.42 : 0.3) * tHalfV), k) + pointer.sy * 0.015,
+      lerp(0, finalYaw, k) - pointer.sx * 0.03,
+      reduce ? 0 : Math.sin(t * 0.5) * 0.004
+    );
+    sky.position.copy(camera.position);
+  }
+
+  /* Pointer ripples */
+  let ripI = 0, lastRip = 0, lastPt = new THREE.Vector2(1e9, 1e9);
+  const ndc = new THREE.Vector2();
+  function seaPoint(cx, cy) {
+    ndc.set(cx / innerWidth * 2 - 1, -(cy / innerHeight) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const d = ray.ray.direction, o = ray.ray.origin;
+    if (d.y > -0.01) return null;
+    const s = -o.y / d.y;
+    return new THREE.Vector2(o.x + d.x * s, o.z + d.z * s);
+  }
+  function ripple(cx, cy, strength) {
+    const p = seaPoint(cx, cy); if (!p) return;
+    U.uRip.value[ripI].set(p.x, p.y, U.uTime.value, strength);
+    ripI = (ripI + 1) % 8;
+    lastPt.copy(p);
+  }
+  const interactive = (el) => el.closest("a, button, input, textarea, label, dialog");
+  document.querySelectorAll("[data-sea]").forEach((sec) => {
+    sec.addEventListener("pointermove", (e) => {
+      pointer.x = e.clientX / innerWidth * 2 - 1; pointer.y = e.clientY / innerHeight * 2 - 1;
+      if (reduce || e.pointerType !== "mouse" || interactive(e.target)) return;
+      const now = performance.now();
+      if (now - lastRip < 110) return;
+      const p = seaPoint(e.clientX, e.clientY);
+      if (p && p.distanceTo(lastPt) > 1.2) { lastRip = now; ripple(e.clientX, e.clientY, 0.32); }
+    });
+    sec.addEventListener("pointerdown", (e) => {
+      if (reduce || interactive(e.target)) return;
+      ripple(e.clientX, e.clientY, 0.45);
+    });
+  });
+
+  /* Render only while the sea is on screen */
+  let running = false, visible = new Set(), last = performance.now(), simT = 0;
+  function frame(now) {
+    const dt = Math.min((now - last) / 1000, 0.05); last = now;
+    if (!reduce) simT += dt;
+    U.uTime.value = simT;
+    updateScene(simT);
+    renderer.render(scene, camera);
+  }
+  function loop(now) { if (!running) return; frame(now); requestAnimationFrame(loop); }
+  function setRunning() {
+    const want = visible.size > 0 && !document.hidden && !reduce;
+    if (want && !running) { running = true; last = performance.now(); requestAnimationFrame(loop); }
+    else if (!want) running = false;
+  }
+  new IntersectionObserver((es) => {
+    es.forEach((e) => e.isIntersecting ? visible.add(e.target) : visible.delete(e.target));
+    setRunning();
+    if (reduce) frame(performance.now());
+  }).observe(heroEl);
+  new IntersectionObserver((es) => {
+    es.forEach((e) => e.isIntersecting ? visible.add(e.target) : visible.delete(e.target));
+    setRunning();
+  }).observe(finalEl);
+  document.addEventListener("visibilitychange", setRunning);
+  if (reduce) addEventListener("scroll", () => { if (visible.size) frame(performance.now()); }, { passive: true });
+
+  canvas.addEventListener("webglcontextlost", (e) => { e.preventDefault(); running = false; root.classList.remove("gl-ready"); root.classList.add("no-gl"); });
+
+  frame(performance.now());
+  requestAnimationFrame(() => root.classList.add("gl-ready"));
+}
+</script>
+</body>
+</html>
