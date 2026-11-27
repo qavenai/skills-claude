@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "accesslint": {
+      "source": {
+        "source": "github",
+        "repo": "accesslint/claude-marketplace"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "accesslint@accesslint": true
+  }
+}
